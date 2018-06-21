@@ -14,14 +14,10 @@ public class CursorAffordance : MonoBehaviour {
     // Use this for initialization
     void Start () {
         cameraRaycaster = GetComponent<CameraRaycaster>();
+        cameraRaycaster.layerChangeObservers += OnLayerChanged; 
 	}
-	
-	// Update is called once per frame
-	void LateUpdate () {
-        ChangeCursorType();
-    }
 
-    private void ChangeCursorType()
+    private void OnLayerChanged()
     {
         switch(cameraRaycaster.layerHit)
         {
@@ -32,6 +28,7 @@ public class CursorAffordance : MonoBehaviour {
                 Cursor.SetCursor(cursorAttack, cursorOffset, CursorMode.Auto);
                 break;
             case Layer.RaycastEndStop:
+                print("RaycastEndStop");
                 Cursor.SetCursor(cursorQuestionMark, cursorOffset, CursorMode.Auto);
                 break;
             default:
