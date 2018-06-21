@@ -22,8 +22,8 @@ public class CameraRaycaster : MonoBehaviour
         get { return m_layerHit; }
     }
 
-    public delegate void OnLayerChange(); // declare new delegate type
-    public OnLayerChange layerChangeObservers; // instantiate an observer pool
+    public delegate void OnLayerChange(Layer newLayer); // declare new delegate type
+    public event OnLayerChange layerChangeObservers; // instantiate an observer pool
 
     void Start() // TODO Awake?
     {
@@ -43,7 +43,7 @@ public class CameraRaycaster : MonoBehaviour
                 if(m_layerHit != layer)
                 {
                     m_layerHit = layer;
-                    layerChangeObservers(); // call the delegates
+                    layerChangeObservers(layer); // call the delegates
                 }                
                 return;
             }
