@@ -5,12 +5,11 @@ using UnityStandardAssets.Characters.ThirdPerson;
 [RequireComponent(typeof (ThirdPersonCharacter))]
 public class PlayerMovement : MonoBehaviour
 {
-    
-
     ThirdPersonCharacter thirdPersonCharacter;   // A reference to the ThirdPersonCharacter on the object
     CameraRaycaster cameraRaycaster;
-    Vector3 currentClickTarget;
-    float walkMoveStopRadius = 0.2f;
+    Vector3 currentDestination, clickPoint;
+    [SerializeField] float walkMoveStopRadius = 0.2f;
+    [SerializeField] float attackMoveStopRadius = 5f;
 
     bool isInDirectMode = false;
 
@@ -18,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     {
         cameraRaycaster = Camera.main.GetComponent<CameraRaycaster>();
         thirdPersonCharacter = GetComponent<ThirdPersonCharacter>();
-        currentClickTarget = transform.position;
+        currentDestination = transform.position;
     }
 
     // Fixed update is called in sync with physics
@@ -28,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G)) // G for gamepad. 
         {
             isInDirectMode = !isInDirectMode;
-            currentClickTarget = transform.position; // clear the clicktarget
+            currentDestination = transform.position; // clear the clicktarget
             
         }
 
@@ -53,20 +52,21 @@ public class PlayerMovement : MonoBehaviour
         Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
         Vector3 movement = v * cameraForward + h * Camera.main.transform.right;
 
-        thirdPersonCharacter.Move(currentClickTarget - transform.position, false, false);
+        thirdPersonCharacter.Move(currentDestination - transform.position, false, false);
     }
 
     private void ProcessMouseMovement()
     {
         if (Input.GetMouseButton(0)) // Moving by holding down mousebutton
         {
+            clickPoint = cameraRaycaster.hit.point;
             switch (cameraRaycaster.layerHit)
             {
                 case Layer.Walkable:
-                    currentClickTarget = cameraRaycaster.hit.point;             
+                    currentDestination = ShortDestination(clickPoint, walkMoveStopRadius);
                     break;
                 case Layer.Enemy:
-                    print("Enemy hit");
+                    currentDestination = ShortDestination(clickPoint, attackMoveStopRadius);
                     // do stuff
                     break;
                 default:
@@ -74,15 +74,37 @@ public class PlayerMovement : MonoBehaviour
                     break;
             }
         }
-        var playerToClickedPoint = transform.position - currentClickTarget;
-        if (playerToClickedPoint.magnitude >= walkMoveStopRadius)
+        WalkToDestination();
+    }
+
+    private void WalkToDestination()
+    {
+        var playerToClickedPoint = transform.position - currentDestination;
+        if (playerToClickedPoint.magnitude >= 0)
         {
-            thirdPersonCharacter.Move(currentClickTarget - transform.position, false, false);
+            thirdPersonCharacter.Move(currentDestination - transform.position, false, false);
         }
         else
         {
             thirdPersonCharacter.Move(Vector3.zero, false, false);
         }
+    }
+
+    Vector3 ShortDestination(Vector3 destination, float shortening)
+    {
+        Vector3 reductionVector = (destination - transform.position).normalized * shortening;
+        return destination - reductionVector; 
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawLine(transform.position, currentDestination);
+        Gizmos.DrawSphere(currentDestination, .1f);
+        Gizmos.DrawSphere(clickPoint, .2f);
+
+        Gizmos.color = new Color(255f, 255f, 255f, 0.5f);
+        Gizmos.DrawWireSphere(transform.position, attackMoveStopRadius);
     }
 }
 
