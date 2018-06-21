@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof (CameraRaycaster))]
 public class CursorAffordance : MonoBehaviour {
     [SerializeField] Texture2D cursorAttack = null;
     [SerializeField] Texture2D cursorQuestionMark = null;
     [SerializeField] Texture2D cursorWalk = null;
-    [SerializeField] Vector2 cursorOffset = new Vector2(96, 96);
+    [SerializeField] Vector2 cursorOffset = new Vector2(0, 0);
 
     CameraRaycaster cameraRaycaster;
     // Use this for initialization

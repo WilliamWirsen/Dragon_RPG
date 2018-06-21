@@ -154,3 +154,4 @@ MonoBehaviour:
   cursorAttack: {fileID: 2800000, guid: fc76eafe2eb0b824391723458240141c, type: 3}
   cursorQuestionMark: {fileID: 2800000, guid: ea6cfd3d413daca4d83cccd67cd2d794, type: 3}
   cursorWalk: {fileID: 2800000, guid: 050b6cd5be5444e4f9991a44c200f574, type: 3}
+  cursorOffset: {x: 0, y: 0}
