@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 65068715231572478}
   - component: {fileID: 54603195442145176}
   m_Layer: 10
-  m_Name: Impling 1
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         var playerToClickedPoint = transform.position - currentClickTarget;
-        if(playerToClickedPoint.magnitude <= walkMoveStopRadius)
+        if(playerToClickedPoint.magnitude >= walkMoveStopRadius)
         {
             m_Character.Move(currentClickTarget - transform.position, false, false);
         } else
