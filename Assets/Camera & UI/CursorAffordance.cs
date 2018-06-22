@@ -28,7 +28,6 @@ public class CursorAffordance : MonoBehaviour {
                 Cursor.SetCursor(cursorAttack, cursorOffset, CursorMode.Auto);
                 break;
             case Layer.RaycastEndStop:
-                print("RaycastEndStop");
                 Cursor.SetCursor(cursorQuestionMark, cursorOffset, CursorMode.Auto);
                 break;
             default:
