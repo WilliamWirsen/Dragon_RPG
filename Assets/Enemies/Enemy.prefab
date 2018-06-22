@@ -310,6 +310,10 @@ GameObject:
   - component: {fileID: 65068715231572478}
   - component: {fileID: 54603195442145176}
   - component: {fileID: 114598017673077600}
+  - component: {fileID: 195826170775647868}
+  - component: {fileID: 136424670081766606}
+  - component: {fileID: 114264554120880444}
+  - component: {fileID: 114897178178213972}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Untagged
@@ -875,7 +879,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1451479166015648}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 6.9207506, y: 0, z: 0.78297234}
+  m_LocalPosition: {x: 251.94522, y: 0, z: 356.5897}
   m_LocalScale: {x: 0.18986, y: 0.18986, z: 0.18986}
   m_Children:
   - {fileID: 4532076250856860}
@@ -1249,7 +1253,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -1274,7 +1278,7 @@ Animator:
   m_GameObject: {fileID: 1451479166015648}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: e85addd11f719ec488327f70532c7e54, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fdae88b660e637a478a9bde2143480c2, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1283,6 +1287,25 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114264554120880444
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1451479166015648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce7a80d520cacc042b5fe14f373d8173, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MovingTurnSpeed: 360
+  m_StationaryTurnSpeed: 180
+  m_JumpPower: 12
+  m_GravityMultiplier: 2
+  m_RunCycleLegOffset: 0.2
+  m_MoveSpeedMultiplier: 1
+  m_AnimSpeedMultiplier: 1
+  m_GroundCheckDistance: 0.1
 --- !u!114 &114350014505854624
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1308,6 +1331,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealthPoints: 100
+  attackRadius: 5
+--- !u!114 &114897178178213972
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1451479166015648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c5335f0882fe4d478883cc8c58ce906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+--- !u!136 &136424670081766606
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1451479166015648}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &137065379340963848
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -1429,3 +1478,24 @@ SkinnedMeshRenderer:
     m_Center: {x: -1.8944316, y: -0.20796895, z: 0.5213319}
     m_Extent: {x: 3.6887083, y: 2.955768, z: 3.6090622}
   m_DirtyAABB: 0
+--- !u!195 &195826170775647868
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1451479166015648}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 1.8
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
