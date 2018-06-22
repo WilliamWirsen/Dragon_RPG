@@ -382,6 +382,7 @@ GameObject:
   - component: {fileID: 95551477406189872}
   - component: {fileID: 65304508122658514}
   - component: {fileID: 54675407167964690}
+  - component: {fileID: 114176638531607962}
   m_Layer: 10
   m_Name: Big Boss
   m_TagString: Untagged
@@ -1252,6 +1253,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114176638531607962
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1503932549727058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d3e051e0d9a834eaa7d0ad489e7167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealthPoints: 100
 --- !u!137 &137185930443431148
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
