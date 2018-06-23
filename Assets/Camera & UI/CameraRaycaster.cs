@@ -48,7 +48,7 @@ public class CameraRaycaster : MonoBehaviour
 		{
 			notifyMouseClickObservers (priorityHit.Value, layerHit);
 		}
-	}
+    }
 
 	void NotifyObserersIfLayerChanged(int newLayer)
 	{
@@ -58,6 +58,7 @@ public class CameraRaycaster : MonoBehaviour
 			notifyLayerChangeObservers (newLayer);
 		}
 	}
+
 
 	RaycastHit? FindTopPriorityHit (RaycastHit[] raycastHits)
 	{

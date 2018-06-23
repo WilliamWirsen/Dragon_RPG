@@ -1,15 +1,21 @@
 using System;
 using UnityEngine;
 using UnityStandardAssets.Characters.ThirdPerson;
+using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(AICharacterControl))]
 [RequireComponent(typeof (ThirdPersonCharacter))]
 public class PlayerMovement : MonoBehaviour
-{
-    ThirdPersonCharacter thirdPersonCharacter;   // A reference to the ThirdPersonCharacter on the object
-    CameraRaycaster cameraRaycaster;
+{   
+    ThirdPersonCharacter thirdPersonCharacter = null;   // A reference to the ThirdPersonCharacter on the object
+    CameraRaycaster cameraRaycaster = null;
     Vector3 currentDestination, clickPoint;
-    [SerializeField] float walkMoveStopRadius = 0.2f;
-    [SerializeField] float attackMoveStopRadius = 5f;
+    AICharacterControl aiCharacterControl = null; 
+    GameObject walkTarget = null;
+
+    [SerializeField] const int walkableLayer = 9;
+    [SerializeField] const int enemyLayer = 10;
 
     bool isInDirectMode = false;
 
@@ -18,9 +24,30 @@ public class PlayerMovement : MonoBehaviour
         cameraRaycaster = Camera.main.GetComponent<CameraRaycaster>();
         thirdPersonCharacter = GetComponent<ThirdPersonCharacter>();
         currentDestination = transform.position;
+        aiCharacterControl = GetComponent<AICharacterControl>();
+        walkTarget = new GameObject("walkTarget");
+        cameraRaycaster.notifyMouseClickObservers += ProcessMouseClick; 
     }
 
-    
+    void ProcessMouseClick(RaycastHit raycastHit, int layerHit)
+    {
+        switch(layerHit)
+        {
+            case enemyLayer:
+                GameObject enemy = raycastHit.collider.gameObject;
+                aiCharacterControl.SetTarget(enemy.transform);
+                break;
+            case walkableLayer:
+                walkTarget.transform.position = raycastHit.point;
+                aiCharacterControl.SetTarget(walkTarget.transform);
+                break;            
+            default:
+                Debug.LogWarning("Don't know how to handle mouse click for player movement"); 
+                break;
+        }
+    }
+
+    // TODO Make this work again
     private void ProcessGamePadMovement()
     {
         float h = Input.GetAxis("Horizontal");
@@ -34,46 +61,7 @@ public class PlayerMovement : MonoBehaviour
         thirdPersonCharacter.Move(currentDestination - transform.position, false, false);
     }
 
-    //private void ProcessMouseMovement()
-    //{
-    //    if (Input.GetMouseButton(0)) // Moving by holding down mousebutton
-    //    {
-    //        clickPoint = cameraRaycaster.hit.point;
-    //        switch (cameraRaycaster.layerHit)
-    //        {
-    //            case Layer.Walkable:
-    //                currentDestination = ShortDestination(clickPoint, walkMoveStopRadius);
-    //                break;
-    //            case Layer.Enemy:
-    //                currentDestination = ShortDestination(clickPoint, attackMoveStopRadius);
-    //                // do stuff
-    //                break;
-    //            default:
-    //                Debug.Log("No passable surface hit.");
-    //                break;
-    //        }
-    //    }
-    //    WalkToDestination();
-    //}
-
-    private void WalkToDestination()
-    {
-        var playerToClickedPoint = transform.position - currentDestination;
-        if (playerToClickedPoint.magnitude >= 0)
-        {
-            thirdPersonCharacter.Move(currentDestination - transform.position, false, false);
-        }
-        else
-        {
-            thirdPersonCharacter.Move(Vector3.zero, false, false);
-        }
-    }
-
-    Vector3 ShortDestination(Vector3 destination, float shortening)
-    {
-        Vector3 reductionVector = (destination - transform.position).normalized * shortening;
-        return destination - reductionVector; 
-    }
+  
 
     private void OnDrawGizmos()
     {
@@ -83,7 +71,6 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.DrawSphere(clickPoint, .2f);
 
         Gizmos.color = new Color(255f, 255f, 255f, 0.5f);
-        Gizmos.DrawWireSphere(transform.position, attackMoveStopRadius);
     }
 }
 
