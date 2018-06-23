@@ -9,29 +9,29 @@ public class CursorAffordance : MonoBehaviour {
     [SerializeField] Texture2D cursorQuestionMark = null;
     [SerializeField] Texture2D cursorWalk = null;
     [SerializeField] Vector2 cursorOffset = new Vector2(0, 0);
+    [SerializeField] const int walkableLayer = 9;
+    [SerializeField] const int enemyLayer = 10;
 
     CameraRaycaster cameraRaycaster;
+
     // Use this for initialization
     void Start () {
         cameraRaycaster = GetComponent<CameraRaycaster>();
-        cameraRaycaster.layerChangeObservers += OnLayerChanged; // registrate
+        cameraRaycaster.notifyLayerChangeObservers += OnLayerChanged; // registrate
     }
 
-    private void OnLayerChanged(Layer newLayer)
+    private void OnLayerChanged(int newLayer)
     {
         switch(newLayer)
         {
-            case Layer.Walkable:
+            case walkableLayer:
                 Cursor.SetCursor(cursorWalk, cursorOffset, CursorMode.Auto); 
                 break;
-            case Layer.Enemy:
+            case enemyLayer:
                 Cursor.SetCursor(cursorAttack, cursorOffset, CursorMode.Auto);
                 break;
-            case Layer.RaycastEndStop:
-                Cursor.SetCursor(cursorQuestionMark, cursorOffset, CursorMode.Auto);
-                break;
             default:
-                Debug.LogWarning("Don't know which cursor to use");
+                Cursor.SetCursor(cursorQuestionMark, cursorOffset, CursorMode.Auto);
                 break;
         }
     }

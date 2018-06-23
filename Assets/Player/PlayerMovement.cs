@@ -20,28 +20,7 @@ public class PlayerMovement : MonoBehaviour
         currentDestination = transform.position;
     }
 
-    // Fixed update is called in sync with physics
-    private void FixedUpdate()
-    {
-        // todo allow player to re - map later
-        if (Input.GetKeyDown(KeyCode.G)) // G for gamepad. 
-        {
-            isInDirectMode = !isInDirectMode;
-            currentDestination = transform.position; // clear the clicktarget
-            
-        }
-
-        if(isInDirectMode)
-        {
-            ProcessGamePadMovement();
-        } else
-        {
-            ProcessMouseMovement();
-        }
-        
-
-    }
-
+    
     private void ProcessGamePadMovement()
     {
         float h = Input.GetAxis("Horizontal");
@@ -55,27 +34,27 @@ public class PlayerMovement : MonoBehaviour
         thirdPersonCharacter.Move(currentDestination - transform.position, false, false);
     }
 
-    private void ProcessMouseMovement()
-    {
-        if (Input.GetMouseButton(0)) // Moving by holding down mousebutton
-        {
-            clickPoint = cameraRaycaster.hit.point;
-            switch (cameraRaycaster.layerHit)
-            {
-                case Layer.Walkable:
-                    currentDestination = ShortDestination(clickPoint, walkMoveStopRadius);
-                    break;
-                case Layer.Enemy:
-                    currentDestination = ShortDestination(clickPoint, attackMoveStopRadius);
-                    // do stuff
-                    break;
-                default:
-                    Debug.Log("No passable surface hit.");
-                    break;
-            }
-        }
-        WalkToDestination();
-    }
+    //private void ProcessMouseMovement()
+    //{
+    //    if (Input.GetMouseButton(0)) // Moving by holding down mousebutton
+    //    {
+    //        clickPoint = cameraRaycaster.hit.point;
+    //        switch (cameraRaycaster.layerHit)
+    //        {
+    //            case Layer.Walkable:
+    //                currentDestination = ShortDestination(clickPoint, walkMoveStopRadius);
+    //                break;
+    //            case Layer.Enemy:
+    //                currentDestination = ShortDestination(clickPoint, attackMoveStopRadius);
+    //                // do stuff
+    //                break;
+    //            default:
+    //                Debug.Log("No passable surface hit.");
+    //                break;
+    //        }
+    //    }
+    //    WalkToDestination();
+    //}
 
     private void WalkToDestination()
     {
