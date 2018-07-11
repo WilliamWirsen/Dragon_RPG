@@ -60,26 +60,58 @@ public class CameraRaycaster : MonoBehaviour
 	}
 
 
-	RaycastHit? FindTopPriorityHit (RaycastHit[] raycastHits)
-	{
-		// Form list of layer numbers hit
-		List<int> layersOfHitColliders = new List<int> ();
-		foreach (RaycastHit hit in raycastHits)
-		{
-			layersOfHitColliders.Add (hit.collider.gameObject.layer);
-		}
+    RaycastHit? FindTopPriorityHit(RaycastHit[] raycastHits)
+    {
+        // Form list of layer numbers hit
+        List<int> layersOfHitColliders = new List<int>();
+        foreach (RaycastHit hit in raycastHits)
+        {
+            layersOfHitColliders.Add(hit.collider.gameObject.layer);
+        }
 
-		// Step through layers in order of priority looking for a gameobject with that layer
-		foreach (int layer in layerPriorities)
-		{
-			foreach (RaycastHit hit in raycastHits)
-			{
-				if (hit.collider.gameObject.layer == layer)
-				{
-					return hit; // stop looking
-				}
-			}
-		}
-		return null; // because cannot use GameObject? nullable
-	}
+        // RaycastHit is not a nullable type, so if we start with a RaycastHit of infinite distance, any one we find will be shorter
+        RaycastHit shortestHit = new RaycastHit { distance = Mathf.Infinity };
+
+        // Step through layers in order of priority looking for a gameobject with that layer
+        foreach (int layer in layerPriorities)
+        {
+            foreach (RaycastHit hit in raycastHits)
+            {
+                if (hit.collider.gameObject.layer == layer &&
+                    hit.distance < shortestHit.distance)
+                {
+                    shortestHit = hit;
+                }
+            }
+        }
+
+        // If our distance is shorter, we've found a valid one
+        if (shortestHit.distance < Mathf.Infinity)
+            return shortestHit;
+        else
+            return null;
+    }
+
+ //   RaycastHit? FindTopPriorityHit (RaycastHit[] raycastHits)
+	//{
+	//	// Form list of layer numbers hit
+	//	List<int> layersOfHitColliders = new List<int> ();
+	//	foreach (RaycastHit hit in raycastHits)
+	//	{
+	//		layersOfHitColliders.Add (hit.collider.gameObject.layer);
+	//	}
+
+	//	// Step through layers in order of priority looking for a gameobject with that layer
+	//	foreach (int layer in layerPriorities)
+	//	{
+	//		foreach (RaycastHit hit in raycastHits)
+	//		{
+	//			if (hit.collider.gameObject.layer == layer)
+	//			{
+	//				return hit; // stop looking
+	//			}
+	//		}
+	//	}
+	//	return null; // because cannot use GameObject? nullable
+	//}
 }
