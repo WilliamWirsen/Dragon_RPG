@@ -40,7 +40,6 @@ public class PlayerMovement : MonoBehaviour
             case walkableLayer:
                 walkTarget.transform.position = raycastHit.point;
                 aiCharacterControl.SetTarget(walkTarget.transform);
-                print("Walkable area");
                 break;            
             default:
                 Debug.LogWarning("Don't know how to handle mouse click for player movement"); 
