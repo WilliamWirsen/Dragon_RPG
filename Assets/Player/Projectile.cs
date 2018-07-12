@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour {
-    [SerializeField]
-    float damageCaused = 10f;
+
+    public float projectileSpeed;
+    public float damageCaused;
 
     void OnTriggerEnter(Collider collider)
     {

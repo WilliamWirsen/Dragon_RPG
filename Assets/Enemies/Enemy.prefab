@@ -162,6 +162,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1312319463894170
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4958295650234026}
+  m_Layer: 10
+  m_Name: Projectile Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1325402900568584
 GameObject:
   m_ObjectHideFlags: 1
@@ -886,6 +901,7 @@ Transform:
   - {fileID: 4318567720340582}
   - {fileID: 4986867472711820}
   - {fileID: 4311497550790772}
+  - {fileID: 4958295650234026}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1187,6 +1203,19 @@ Transform:
   m_Father: {fileID: 4547660685062502}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4958295650234026
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1312319463894170}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 9.33, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4384875945891068}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4971767082804160
 Transform:
   m_ObjectHideFlags: 1
@@ -1333,6 +1362,9 @@ MonoBehaviour:
   maxHealthPoints: 100
   attackRadius: 4
   moveRadius: 9
+  projectileToUse: {fileID: 1038732007661266, guid: 6cbe4696ed4f7d4499bbbc013941bd26,
+    type: 2}
+  projectileSocket: {fileID: 1312319463894170}
 --- !u!114 &114897178178213972
 MonoBehaviour:
   m_ObjectHideFlags: 1
