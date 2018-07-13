@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 54615383010621140}
   - component: {fileID: 114526835171867770}
   m_Layer: 0
-  m_Name: Projectile
+  m_Name: Fast projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,8 +38,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1038732007661266}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 257.811, y: 1.083, z: 347.125}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 260.6356, y: 0.5, z: 357.13028}
+  m_LocalScale: {x: 0.27845842, y: 0.27845842, z: 0.27845842}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -59,7 +59,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: c617b81dccf932e49b6960ade76fbb93, type: 2}
+  - {fileID: 2100000, guid: e0459f3145339894c93f0fc8a5470fb6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,7 +97,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62b33ee4f87c6ef4c9530c3d9cfc9e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageCaused: 10
+  projectileSpeed: 25
 --- !u!135 &135747910437237018
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -120,7 +120,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1038732007661266}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5

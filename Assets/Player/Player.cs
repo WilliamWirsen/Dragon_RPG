@@ -4,8 +4,45 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IDamageable {
 
+    [SerializeField] int enemyLayer = 10;
     [SerializeField] float maxHealthPoints = 100f;
-    float currentHealth = 100f;
+    [SerializeField] float damagePerHit = 10f;
+    [SerializeField] float minTimeBetweenHit = .5f;
+    [SerializeField] float maxAttackRange = 2f;
+
+    float currentHealth;
+    GameObject currentTarget;
+    CameraRaycaster cameraRaycaster;
+    float lastHitTime = 0f;
+
+    void Start()
+    {
+        cameraRaycaster = FindObjectOfType<CameraRaycaster>();
+        cameraRaycaster.notifyMouseClickObservers += OnMouseClick;
+        currentHealth = maxHealthPoints; 
+    }
+
+    void OnMouseClick(RaycastHit raycastHit, int layerHit) 
+    {
+        if(layerHit == enemyLayer)
+        {
+            var enemy = raycastHit.collider.gameObject;            
+
+            if((enemy.transform.position - transform.position).magnitude > maxAttackRange)
+            {
+                return; 
+            }
+
+            currentTarget = enemy;
+
+            var enemyComponent = enemy.GetComponent<Enemy>();
+            if(Time.time - lastHitTime > minTimeBetweenHit)
+            {
+                enemyComponent.TakeDamage(damagePerHit);
+                lastHitTime = Time.time;
+            }            
+        }
+    }
 
     public float healthAsPercentage
     {
