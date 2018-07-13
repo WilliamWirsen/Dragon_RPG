@@ -853,7 +853,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4085388452908860}
   - component: {fileID: 137741398513552224}
-  - component: {fileID: 114877786363544048}
   m_Layer: 2
   m_Name: EthanBody
   m_TagString: Untagged
@@ -2562,14 +2561,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce7a80d520cacc042b5fe14f373d8173, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MovingTurnSpeed: 360
-  m_StationaryTurnSpeed: 180
+  m_MovingTurnSpeed: 1800
+  m_StationaryTurnSpeed: 900
   m_JumpPower: 12
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
   m_AnimSpeedMultiplier: 1
-  m_GroundCheckDistance: 0.19
+  m_GroundCheckDistance: 1
 --- !u!114 &114697484186256250
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2584,30 +2583,11 @@ MonoBehaviour:
   maxHealthPoints: 250
   chaseRadius: 9
   attackRadius: 9
-  damagePerShot: -30
-  secondsBetweenShots: 1.9
+  damagePerShot: -35.69
+  secondsBetweenShots: 1.51
   projectileToUse: {fileID: 1038732007661266, guid: cdfbdc708e90b0941a8dc2aeb80128f0,
     type: 2}
   projectileSocket: {fileID: 1919079401617452}
-  aimOffset: {x: 0, y: 1, z: 0}
---- !u!114 &114877786363544048
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1631278005371108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14d3e051e0d9a834eaa7d0ad489e7167, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealthPoints: 100
-  chaseRadius: 7
-  attackRadius: 4
-  damagePerShot: 9
-  secondsBetweenShots: 0.5
-  projectileToUse: {fileID: 0}
-  projectileSocket: {fileID: 0}
   aimOffset: {x: 0, y: 1, z: 0}
 --- !u!114 &114921671485614432
 MonoBehaviour:
