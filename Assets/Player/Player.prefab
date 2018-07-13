@@ -854,7 +854,7 @@ MonoBehaviour:
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
   m_AnimSpeedMultiplier: 1.1
-  m_GroundCheckDistance: 0.3
+  m_GroundCheckDistance: 1
 --- !u!114 &114713603061829974
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -879,9 +879,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyLayer: 10
-  maxHealthPoints: 400
-  damagePerHit: 10
-  minTimeBetweenHit: 0.5
+  maxHealthPoints: 1000
+  damagePerHit: 75
+  minTimeBetweenHit: 2
   maxAttackRange: 2
 --- !u!114 &114792528440833678
 MonoBehaviour:
