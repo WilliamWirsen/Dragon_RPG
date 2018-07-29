@@ -3,7 +3,10 @@ guid: c87eb43ef8490a64296fa5f8589ae776
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - gripTransform: {instanceID: 0}
+  - weaponPrefab: {instanceID: 0}
+  - attackAnimation: {fileID: 7400000, guid: ce8a7098226991b4089e60f8da0ac630, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
