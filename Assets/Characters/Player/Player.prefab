@@ -576,8 +576,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1262726590123324}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 257.7, y: -0.022, z: 348.52}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.000000089406974}
+  m_LocalPosition: {x: 330.72, y: 0, z: 259.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4133136067628446}
@@ -708,7 +708,8 @@ MonoBehaviour:
   damagePerHit: 75
   minTimeBetweenHit: 2
   maxAttackRange: 2
-  weaponInUse: {fileID: 11400000, guid: d26c606b6602cb4458c9c12c406a7df8, type: 2}
+  weaponInUse: {fileID: 11400000, guid: f497d09ceb002be44ae5d698528d1b36, type: 2}
+  weaponSocket: {fileID: 1867838242381368}
 --- !u!114 &114792528440833678
 MonoBehaviour:
   m_ObjectHideFlags: 1
