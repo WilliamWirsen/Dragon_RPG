@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class Player : MonoBehaviour, IDamageable {
 
@@ -12,7 +13,6 @@ public class Player : MonoBehaviour, IDamageable {
     [SerializeField] float maxAttackRange = 2f;
 
     [SerializeField] Weapon weaponInUse;
-    [SerializeField] GameObject weaponSocket;
 
     float currentHealth;
     GameObject currentTarget;
@@ -30,9 +30,19 @@ public class Player : MonoBehaviour, IDamageable {
     private void PutWeaponInHand()
     {
         var weaponPrefab = weaponInUse.GetWeaponPrefab();
-        var weapon = Instantiate(weaponPrefab, weaponSocket.transform);
+        GameObject dominantHand = RequestDominantHand();
+        var weapon = Instantiate(weaponPrefab, dominantHand.transform);
         weapon.transform.localPosition = weaponInUse.gripTransform.localPosition;
         weapon.transform.localRotation = weaponInUse.gripTransform.localRotation;
+    }
+
+    private GameObject RequestDominantHand()
+    {
+        var dominantHands = GetComponentsInChildren<DominantHand>();
+        int numberOfDominantHands = dominantHands.Length;
+        Assert.IsFalse(numberOfDominantHands <= 0, "No dominantHand found on Player, please add one");
+        Assert.IsFalse(numberOfDominantHands > 1, "Multiple dominantHand scripts on player, please remove one");
+        return dominantHands[0].gameObject; 
     }
 
     private void RegisterForMouseClick()
