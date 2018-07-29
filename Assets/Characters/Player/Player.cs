@@ -15,7 +15,6 @@ public class Player : MonoBehaviour, IDamageable {
     [SerializeField] Weapon weaponInUse;
 
     float currentHealth;
-    GameObject currentTarget;
     CameraRaycaster cameraRaycaster;
     float lastHitTime = 0f;
 
@@ -61,8 +60,6 @@ public class Player : MonoBehaviour, IDamageable {
             {
                 return; 
             }
-
-            currentTarget = enemy;
 
             var enemyComponent = enemy.GetComponent<Enemy>();
             if(Time.time - lastHitTime > minTimeBetweenHit)
