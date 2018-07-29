@@ -74,7 +74,7 @@ public class Companion : MonoBehaviour {
         projectileComponent.SetDamage(healingPerShot);
 
         Vector3 unitVectorToPlayer = (player.transform.position + aimOffset - projectileSocket.transform.position).normalized;
-        float projectileSpeed = projectileComponent.projectileSpeed;
+        float projectileSpeed = projectileComponent.GetDefaultLaunchSpeed();
         newProjectile.GetComponent<Rigidbody>().velocity = unitVectorToPlayer * projectileSpeed;
     }
 

@@ -14,4 +14,5 @@ public class Weapon : ScriptableObject {
     {
         return weaponPrefab; 
     }
+
 }
