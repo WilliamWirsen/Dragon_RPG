@@ -12,19 +12,13 @@ namespace RPG.Characters
     public class Player : MonoBehaviour, IDamageable
     {
 
-        [SerializeField]
-        int enemyLayer = 10;
-        [SerializeField]
-        float maxHealthPoints = 100f;
-        [SerializeField]
-        float damagePerHit = 10f;
-        [SerializeField]
-        float minTimeBetweenHit = .5f;
-        [SerializeField]
-        float maxAttackRange = 2f;
-
-        [SerializeField]
-        Weapon weaponInUse;
+        [SerializeField] int enemyLayer = 10;
+        [SerializeField] float maxHealthPoints = 100f;
+        [SerializeField] float damagePerHit = 10f;
+        [SerializeField] float minTimeBetweenHit = .5f;
+        [SerializeField] float maxAttackRange = 2f;
+        [SerializeField] Weapon weaponInUse;
+        [SerializeField] AnimatorOverrideController animatorOverrideController;
 
         float currentHealth;
         CameraRaycaster cameraRaycaster;
@@ -33,9 +27,21 @@ namespace RPG.Characters
         void Start()
         {
             RegisterForMouseClick();
-            currentHealth = maxHealthPoints;
+            SetCurrentMaxHealth();
             PutWeaponInHand();
+            OverrideAnimatorController();
+        }
 
+        private void SetCurrentMaxHealth()
+        {
+            currentHealth = maxHealthPoints;
+        }
+
+        private void OverrideAnimatorController()
+        {
+            var animator = GetComponent<Animator>();
+            animator.runtimeAnimatorController = animatorOverrideController;
+            animatorOverrideController["DEFAULT ATTACK"] = weaponInUse.GetAttackAnimClip(); // TODO remove const
         }
 
         private void PutWeaponInHand()

@@ -8,10 +8,8 @@ namespace RPG.Weapons
     public class Projectile : MonoBehaviour
     {
 
-        [SerializeField]
-        float projectileSpeed;
-        [SerializeField]
-        GameObject shooter;
+        [SerializeField] float projectileSpeed;
+        [SerializeField] GameObject shooter;
 
         const float DESTROY_DELAY = 0.01f;
         float damageCaused;
@@ -34,7 +32,7 @@ namespace RPG.Weapons
         void OnCollisionEnter(Collision collision)
         {
             var layerCollidedWith = collision.gameObject.layer;
-            if (layerCollidedWith != shooter.layer)
+            if (shooter && layerCollidedWith != shooter.layer)
             {
                 DamageDamageable(collision);
             }
