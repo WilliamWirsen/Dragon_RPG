@@ -15,11 +15,11 @@ namespace RPG.Characters
         [SerializeField] int enemyLayer = 10;
         [SerializeField] float maxHealthPoints = 100f;
         [SerializeField] float damagePerHit = 10f;
-        [SerializeField] float minTimeBetweenHit = .5f;
-        [SerializeField] float maxAttackRange = 2f;
+        
         [SerializeField] Weapon weaponInUse;
         [SerializeField] AnimatorOverrideController animatorOverrideController;
 
+        Animator animator;
         float currentHealth;
         CameraRaycaster cameraRaycaster;
         float lastHitTime = 0f;
@@ -29,7 +29,12 @@ namespace RPG.Characters
             RegisterForMouseClick();
             SetCurrentMaxHealth();
             PutWeaponInHand();
-            OverrideAnimatorController();
+            SetupRuntimeAnimator();
+        }
+
+        public void TakeDamage(float damage)
+        {
+            currentHealth = Mathf.Clamp(currentHealth - damage, 0f, maxHealthPoints);
         }
 
         private void SetCurrentMaxHealth()
@@ -37,9 +42,9 @@ namespace RPG.Characters
             currentHealth = maxHealthPoints;
         }
 
-        private void OverrideAnimatorController()
+        private void SetupRuntimeAnimator()
         {
-            var animator = GetComponent<Animator>();
+            animator = GetComponent<Animator>();
             animator.runtimeAnimatorController = animatorOverrideController;
             animatorOverrideController["DEFAULT ATTACK"] = weaponInUse.GetAttackAnimClip(); // TODO remove const
         }
@@ -74,19 +79,31 @@ namespace RPG.Characters
             {
                 var enemy = raycastHit.collider.gameObject;
 
-                if ((enemy.transform.position - transform.position).magnitude > maxAttackRange)
+                if (isTargetInRange(enemy))
                 {
-                    return;
-                }
-
-                var enemyComponent = enemy.GetComponent<Enemy>();
-                if (Time.time - lastHitTime > minTimeBetweenHit)
-                {
-                    enemyComponent.TakeDamage(damagePerHit);
-                    lastHitTime = Time.time;
-                }
+                    AttackTarget(enemy);
+                }                
             }
         }
+
+        private void AttackTarget(GameObject enemy)
+        {
+            var enemyComponent = enemy.GetComponent<Enemy>();
+            if (Time.time - lastHitTime > weaponInUse.GetMinTimeBetweenHit())
+            {
+                transform.LookAt(enemy.transform.position);
+                animator.SetTrigger("Attack"); // TODO make const                
+                enemyComponent.TakeDamage(damagePerHit);
+                lastHitTime = Time.time;
+            }
+        }
+
+        private bool isTargetInRange(GameObject target)
+        {
+            float distanceToTarget = (target.transform.position - transform.position).magnitude;
+            return distanceToTarget <=  weaponInUse.GetMaxAttackRange();
+        }
+
 
         public float healthAsPercentage
         {
@@ -98,10 +115,7 @@ namespace RPG.Characters
 
         }
 
-        public void TakeDamage(float damage)
-        {
-            currentHealth = Mathf.Clamp(currentHealth - damage, 0f, maxHealthPoints);
-        }
+        
     }
 }
 

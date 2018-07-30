@@ -32,7 +32,7 @@ namespace RPG.Weapons
         void OnCollisionEnter(Collision collision)
         {
             var layerCollidedWith = collision.gameObject.layer;
-            if (shooter && layerCollidedWith != shooter.layer)
+            if (shooter && layerCollidedWith != shooter.layer && layerCollidedWith != 10)
             {
                 DamageDamageable(collision);
             }

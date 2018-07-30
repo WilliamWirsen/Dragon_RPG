@@ -11,24 +11,16 @@ namespace RPG.Characters
     public class Enemy : MonoBehaviour, IDamageable
     {
 
-        [SerializeField]
-        float maxHealthPoints = 100f;
-        [SerializeField]
-        float chaseRadius = 7f;
+        [SerializeField] float maxHealthPoints = 100f;
+        [SerializeField] float chaseRadius = 7f;
 
-        [SerializeField]
-        float attackRadius = 4f;
-        [SerializeField]
-        float damagePerShot = 9f;
-        [SerializeField]
-        float secondsBetweenShots = 0.5f;
+        [SerializeField] float attackRadius = 4f;
+        [SerializeField] float damagePerShot = 9f;
+        [SerializeField] float secondsBetweenShots = 0.5f;
 
-        [SerializeField]
-        GameObject projectileToUse;
-        [SerializeField]
-        GameObject projectileSocket;
-        [SerializeField]
-        Vector3 aimOffset = new Vector3(0, 1f, 0);
+        [SerializeField] GameObject projectileToUse;
+        [SerializeField] GameObject projectileSocket;
+        [SerializeField] Vector3 aimOffset = new Vector3(0, 1f, 0);
 
         float currentHealthPoints;
         AICharacterControl aiCharacterControl = null;
