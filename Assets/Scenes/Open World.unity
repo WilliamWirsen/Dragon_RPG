@@ -113,7 +113,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 40c3d0159010bfb42842e1401d032d37, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: fe00faa477e748c4394c7dfb9f07af7d, type: 2}
 --- !u!1 &2081553
 GameObject:
   m_ObjectHideFlags: 0
@@ -5875,6 +5875,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 136271515216879668, guid: bb8f4624312ad8345b021cdbafc76ef1,
+        type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: c2815a7ab32e42c4bb42f59caacb8ec1,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb8f4624312ad8345b021cdbafc76ef1, type: 2}
   m_IsPrefabAsset: 0
@@ -9242,33 +9248,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 4672799233028082, guid: 4776119b3319d06489e6b5afc061002e, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 92.545006
-      objectReference: {fileID: 0}
-    - target: {fileID: 4672799233028082, guid: 4776119b3319d06489e6b5afc061002e, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1.5881901
-      objectReference: {fileID: 0}
-    - target: {fileID: 4672799233028082, guid: 4776119b3319d06489e6b5afc061002e, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1.5881901
-      objectReference: {fileID: 0}
     - target: {fileID: 1635044369561822, guid: 4776119b3319d06489e6b5afc061002e, type: 2}
       propertyPath: m_Name
       value: Street Lamp Straight (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1559195078933104, guid: 4776119b3319d06489e6b5afc061002e, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1635044369561822, guid: 4776119b3319d06489e6b5afc061002e, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967294
-      objectReference: {fileID: 0}
-    - target: {fileID: 1768972024593906, guid: 4776119b3319d06489e6b5afc061002e, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967294
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4776119b3319d06489e6b5afc061002e, type: 2}

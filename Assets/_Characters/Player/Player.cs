@@ -47,6 +47,8 @@ namespace RPG.Characters
             animator = GetComponent<Animator>();
             animator.runtimeAnimatorController = animatorOverrideController;
             animatorOverrideController["DEFAULT ATTACK"] = weaponInUse.GetAttackAnimClip(); // TODO remove const
+            animatorOverrideController["HumanoidIdle"] = weaponInUse.GetIdleAnimClip();
+            animatorOverrideController["HumanoidRun"] = weaponInUse.GetRunAnimClip();
         }
 
         private void PutWeaponInHand()

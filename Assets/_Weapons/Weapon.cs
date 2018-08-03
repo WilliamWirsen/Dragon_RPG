@@ -12,6 +12,9 @@ namespace RPG.Weapons
 
         [SerializeField] GameObject weaponPrefab;
         [SerializeField] AnimationClip attackAnimation;
+        [SerializeField] AnimationClip dyingAnimation;
+        [SerializeField] AnimationClip idleAnimation;
+        [SerializeField] AnimationClip runAnimation;
         [SerializeField] float minTimeBetweenHit = .5f;
         [SerializeField] float maxAttackRange = 2f;
 
@@ -32,14 +35,23 @@ namespace RPG.Weapons
 
         public AnimationClip GetAttackAnimClip()
         {
-            RemoveAnimationEvents();
+            attackAnimation.events = new AnimationEvent[0];
             return attackAnimation;
         }
-
-        // So that asset packs cannot cause crashes
-        private void RemoveAnimationEvents()
+        public AnimationClip GetDyingAnimClip()
         {
-            attackAnimation.events = new AnimationEvent[0];
+            dyingAnimation.events = new AnimationEvent[0];
+            return dyingAnimation;
+        }
+        public AnimationClip GetIdleAnimClip()
+        {
+            idleAnimation.events = new AnimationEvent[0];
+            return idleAnimation;
+        }
+        public AnimationClip GetRunAnimClip()
+        {
+            runAnimation.events = new AnimationEvent[0];
+            return runAnimation;
         }
     }
 }
