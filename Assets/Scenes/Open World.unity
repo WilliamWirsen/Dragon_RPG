@@ -4448,36 +4448,6 @@ Transform:
   m_Father: {fileID: 952811860}
   m_RootOrder: 40
   m_LocalEulerAnglesHint: {x: 0, y: 180.24998, z: 0}
---- !u!1 &703161979
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 703161980}
-  m_Layer: 0
-  m_Name: Crossbow Grip
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &703161980
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 703161979}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 257.47205, y: 0.94000006, z: 348.4646}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 16
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &710334936
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9595,6 +9565,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 465337927}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1526308451 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4564516639210696, guid: d2f5540fa38d14d48bae037b79bdf29b,
+    type: 3}
+  m_PrefabInstance: {fileID: 179424092}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1530579284 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4820447097036738, guid: f7cb6398436604140a62bdc6c2bf032e,
@@ -12501,34 +12477,6 @@ PrefabInstance:
       value: Crossbow
       objectReference: {fileID: 0}
     - target: {fileID: 421366, guid: 1dcc6f17f2ad24b98a7ef082c8c454a9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 258.96725
-      objectReference: {fileID: 0}
-    - target: {fileID: 421366, guid: 1dcc6f17f2ad24b98a7ef082c8c454a9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 421366, guid: 1dcc6f17f2ad24b98a7ef082c8c454a9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 347.66763
-      objectReference: {fileID: 0}
-    - target: {fileID: 421366, guid: 1dcc6f17f2ad24b98a7ef082c8c454a9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 421366, guid: 1dcc6f17f2ad24b98a7ef082c8c454a9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 421366, guid: 1dcc6f17f2ad24b98a7ef082c8c454a9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 421366, guid: 1dcc6f17f2ad24b98a7ef082c8c454a9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 421366, guid: 1dcc6f17f2ad24b98a7ef082c8c454a9, type: 3}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
@@ -14377,3 +14325,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2138247667}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &729900336654017816
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1526308451}
+    m_Modifications:
+    - target: {fileID: 729900335960294243, guid: 1089fb3213b82914d9382d266333bcf1,
+        type: 3}
+      propertyPath: m_Name
+      value: Crossbow Grip
+      objectReference: {fileID: 0}
+    - target: {fileID: 729900335960294244, guid: 1089fb3213b82914d9382d266333bcf1,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 729900335960294244, guid: 1089fb3213b82914d9382d266333bcf1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -140.54199
+      objectReference: {fileID: 0}
+    - target: {fileID: 729900335960294244, guid: 1089fb3213b82914d9382d266333bcf1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -192.963
+      objectReference: {fileID: 0}
+    - target: {fileID: 729900335960294244, guid: 1089fb3213b82914d9382d266333bcf1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -210.588
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1089fb3213b82914d9382d266333bcf1, type: 3}

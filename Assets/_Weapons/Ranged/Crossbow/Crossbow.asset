@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c87eb43ef8490a64296fa5f8589ae776, type: 3}
   m_Name: Crossbow
   m_EditorClassIdentifier: 
-  gripTransform: {fileID: 4770556374937910, guid: 3971a88e1c728b0498656fb014567ccc,
+  gripTransform: {fileID: 729900335960294244, guid: 1089fb3213b82914d9382d266333bcf1,
     type: 3}
   weaponPrefab: {fileID: 167016, guid: 1dcc6f17f2ad24b98a7ef082c8c454a9, type: 3}
   attackAnimation: {fileID: 7400000, guid: d1db09b8a2fec0e479f2f89d10b0f8bb, type: 3}
