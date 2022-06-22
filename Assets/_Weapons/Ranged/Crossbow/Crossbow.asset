@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c87eb43ef8490a64296fa5f8589ae776, type: 3}
+  m_Name: Crossbow
+  m_EditorClassIdentifier: 
+  gripTransform: {fileID: 4770556374937910, guid: 3971a88e1c728b0498656fb014567ccc,
+    type: 3}
+  weaponPrefab: {fileID: 167016, guid: 1dcc6f17f2ad24b98a7ef082c8c454a9, type: 3}
+  attackAnimation: {fileID: 7400000, guid: d1db09b8a2fec0e479f2f89d10b0f8bb, type: 3}
+  dyingAnimation: {fileID: 7400000, guid: 04c07d4ee1c0071498a968073322ea33, type: 3}
+  idleAnimation: {fileID: 7400000, guid: 2ac2cdc6ab05eaf4f82516f6029ea271, type: 3}
+  runAnimation: {fileID: 7400000, guid: 6299bb0ce520bc844b769f08f374d825, type: 3}
+  minTimeBetweenHit: 0.5
+  maxAttackRange: 0
