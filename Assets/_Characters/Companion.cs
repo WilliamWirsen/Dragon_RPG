@@ -26,6 +26,8 @@ namespace RPG.Characters
         GameObject projectileSocket;
         [SerializeField]
         Vector3 aimOffset = new Vector3(0, 1f, 0);
+        [SerializeField]
+        CompanionType CompanionType = CompanionType.Healer;
 
         float currentHealthPoints;
         AICharacterControl aiCharacterControl = null;
@@ -45,12 +47,17 @@ namespace RPG.Characters
             player = GameObject.FindGameObjectWithTag("Player");
             aiCharacterControl = GetComponent<AICharacterControl>();
             currentHealthPoints = maxHealthPoints;
+
+            if(CompanionType == CompanionType.Healer)
+            {
+                isHealing = true;
+            }
         }
 
         private void Update()
         {
             float distanceToPlayer = Vector3.Distance(player.transform.position, aiCharacterControl.transform.position);
-            if (distanceToPlayer <= healingRadius && !isHealing)
+            if (distanceToPlayer <= healingRadius && !isHealing && player.GetComponent<Player>().healthAsPercentage < 100f)
             {
                 isHealing = true;
                 InvokeRepeating("SpawnProjectile", 0f, secondsBetweenShots);
