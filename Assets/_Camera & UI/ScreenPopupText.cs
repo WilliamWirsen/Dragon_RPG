@@ -1,12 +1,9 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
 
 public class ScreenPopupText : MonoBehaviour
 {
     private TextMeshPro _textMesh;
-    private float _startFontSize = 6;
-    private float _maxFontSize = 12;
     
     private Color _startColor; 
     private Color _endColor;
@@ -18,30 +15,29 @@ public class ScreenPopupText : MonoBehaviour
     private void Awake()
     {
         _textMesh = GetComponent<TextMeshPro>();
-        _textMesh.fontSize = _startFontSize;
         
     }
-    public void Setup(int damageAmount)
+    public void Setup(int amountValue)
     {
-        _textMesh.text = damageAmount.ToString();
-        if (damageAmount > 0)
+        var amountValueAbsolute = System.Math.Abs(amountValue);
+        _textMesh.text = amountValueAbsolute.ToString();
+        if (amountValue > 0)
         {
             _startColor = Color.red;
             _textMesh.color = _startColor;
             _endColor = new(1, 0.7f, 0.7f, 0);
-
         }
-        else if (damageAmount == 0)
+        else if (amountValue == 0)
         {
             _startColor = Color.white;
             _textMesh.color = _startColor;
             _endColor = Color.yellow;
         }
-        else if (damageAmount < 0)
+        else if (amountValue < 0)
         {            
-            _startColor = Color.white;
+            _startColor = Color.cyan;
             _textMesh.color = _startColor;
-            _endColor = Color.cyan;
+            _endColor = new(0.7f, 1f, 1f, 0); 
         }        
 
         Destroy(gameObject, 5);

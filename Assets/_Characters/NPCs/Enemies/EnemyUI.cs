@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-namespace RPG.Characters
+namespace RPG.Characters.NPCs.Enemies
 {
     // Add a UI Socket transform to your enemy
     // Attack this script to the socket

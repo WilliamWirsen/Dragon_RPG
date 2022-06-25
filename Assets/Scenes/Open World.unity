@@ -6024,7 +6024,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 13400000, guid: c2815a7ab32e42c4bb42f59caacb8ec1,
         type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114697484186256250, guid: bb8f4624312ad8345b021cdbafc76ef1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bb8f4624312ad8345b021cdbafc76ef1, type: 3}
 --- !u!1001 &1002343784
 PrefabInstance:

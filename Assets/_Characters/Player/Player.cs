@@ -1,4 +1,5 @@
 ﻿using RPG.CameraUI;
+using RPG.Characters.NPCs;
 using RPG.Core;
 using RPG.Weapons;
 using UnityEngine;
@@ -23,7 +24,7 @@ namespace RPG.Characters
         CameraRaycaster cameraRaycaster;
         float lastHitTime = 0f;
 
-        public float healthAsPercentage
+        public float HealthAsPercentage
         {
             get
             {
@@ -91,7 +92,7 @@ namespace RPG.Characters
             {
                 var enemy = raycastHit.collider.gameObject;
 
-                if (isTargetInRange(enemy))
+                if (IsTargetInRange(enemy))
                 {
                     AttackTarget(enemy);
                 }
@@ -100,17 +101,17 @@ namespace RPG.Characters
 
         private void AttackTarget(GameObject enemy)
         {
-            var enemyComponent = enemy.GetComponent<Enemy>();
+            var npcComponent = enemy.GetComponent<NonControllableCharacter>();
             if (Time.time - lastHitTime > weaponInUse.GetMinTimeBetweenHit())
             {
                 transform.LookAt(enemy.transform.position);
                 animator.SetTrigger("Attack"); // TODO make const                
-                enemyComponent.TakeDamage(damagePerHit);
+                npcComponent.TakeDamage(damagePerHit);
                 lastHitTime = Time.time;
             }
         }
 
-        private bool isTargetInRange(GameObject target)
+        private bool IsTargetInRange(GameObject target)
         {
             float distanceToTarget = (target.transform.position - transform.position).magnitude;
             return distanceToTarget <= weaponInUse.GetMaxAttackRange();

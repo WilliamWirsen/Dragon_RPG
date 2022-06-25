@@ -1,15 +1,13 @@
-﻿using RPG.Core;
-using RPG.Weapons;
-using System;
+﻿using RPG.Weapons;
 using UnityEngine;
 using UnityStandardAssets.Characters.ThirdPerson;
 
-namespace RPG.Characters
+namespace RPG.Characters.NPCs.Enemies
 {
-    public class Enemy : MonoBehaviour, IDamageable
+    [RequireComponent(typeof(NonControllableCharacter))]
+    public class Enemy : MonoBehaviour
     {
 
-        [SerializeField] float maxHealthPoints = 100f;
         [SerializeField] float chaseRadius = 7f;
 
         [SerializeField] float attackRadius = 4f;
@@ -20,26 +18,16 @@ namespace RPG.Characters
         [SerializeField] GameObject projectileSocket;
         [SerializeField] Vector3 aimOffset = new Vector3(0, 1f, 0);
         [SerializeField] TextMesh _damageText;
-        [SerializeField] GameObject _popupTextGameObject;
-
-        float currentHealthPoints;
+        
         AICharacterControl aiCharacterControl = null;
         GameObject player = null;
         bool isAttacking = false;
 
-        public float healthAsPercentage
-        {
-            get
-            {
-                float healthAsPercentage = currentHealthPoints / maxHealthPoints;
-                return healthAsPercentage;
-            }
-        }
+        
         private void Start()
         {
             player = GameObject.FindGameObjectWithTag("Player");
             aiCharacterControl = GetComponent<AICharacterControl>();
-            currentHealthPoints = maxHealthPoints;
         }
 
         private void Update()
@@ -48,7 +36,7 @@ namespace RPG.Characters
             if (distanceToPlayer <= attackRadius && !isAttacking)
             {
                 isAttacking = true;
-                InvokeRepeating("FireProjectile", 0f, secondsBetweenShots);
+                InvokeRepeating(nameof(FireProjectile), 0f, secondsBetweenShots);
             }
 
             if (distanceToPlayer > attackRadius)
@@ -65,33 +53,7 @@ namespace RPG.Characters
             {
                 aiCharacterControl.SetTarget(aiCharacterControl.transform);
             }
-        }
-
-        public static ScreenPopupText CreateDamagePopup(Vector3 position, int damage, GameObject damagePopupText)
-        {
-            var damagePopupTextTransform = Instantiate(damagePopupText, position, Quaternion.identity);
-            ScreenPopupText popupText = damagePopupTextTransform.GetComponent<ScreenPopupText>();
-            popupText.Setup(damage);
-
-            return popupText;
-        }
-
-        public void TakeDamage(float damage)
-        {
-            currentHealthPoints = Mathf.Clamp(currentHealthPoints - damage, 0f, maxHealthPoints);
-            if(damage >= 0)
-            {
-                CreateDamagePopup(gameObject.transform.position, (int)Math.Ceiling(damage), _popupTextGameObject);
-            }
-            else
-            {
-                // Not yet implemented
-            }
-            if (currentHealthPoints <= 0) 
-            { 
-                Destroy(gameObject); 
-            }
-        }
+        }    
 
         private void FireProjectile()
         {
