@@ -1,4 +1,7 @@
-﻿namespace RPG.Core
+﻿
+using UnityEngine;
+
+namespace RPG.Core
 {
     public interface IDamageable
     {

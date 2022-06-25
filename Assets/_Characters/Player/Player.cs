@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Assertions;
-using RPG.CameraUI;
+﻿using RPG.CameraUI;
 using RPG.Core;
 using RPG.Weapons;
+using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace RPG.Characters
 {
@@ -15,14 +12,26 @@ namespace RPG.Characters
         [SerializeField] int enemyLayer = 10;
         [SerializeField] float maxHealthPoints = 100f;
         [SerializeField] float damagePerHit = 10f;
-        
+
         [SerializeField] Weapon weaponInUse;
         [SerializeField] AnimatorOverrideController animatorOverrideController;
+        [SerializeField] GameObject _popupText;
+
 
         Animator animator;
         float currentHealth;
         CameraRaycaster cameraRaycaster;
         float lastHitTime = 0f;
+
+        public float healthAsPercentage
+        {
+            get
+            {
+                float healthAsPercentage = currentHealth / maxHealthPoints;
+                return healthAsPercentage;
+            }
+
+        }
 
         void Start()
         {
@@ -35,6 +44,7 @@ namespace RPG.Characters
         public void TakeDamage(float damage)
         {
             currentHealth = Mathf.Clamp(currentHealth - damage, 0f, maxHealthPoints);
+            ScreenPopupText.CreateDamagePopup(gameObject.transform.position, (int)System.Math.Ceiling(damage), _popupText);
         }
 
         private void SetCurrentMaxHealth()
@@ -84,7 +94,7 @@ namespace RPG.Characters
                 if (isTargetInRange(enemy))
                 {
                     AttackTarget(enemy);
-                }                
+                }
             }
         }
 
@@ -103,21 +113,17 @@ namespace RPG.Characters
         private bool isTargetInRange(GameObject target)
         {
             float distanceToTarget = (target.transform.position - transform.position).magnitude;
-            return distanceToTarget <=  weaponInUse.GetMaxAttackRange();
+            return distanceToTarget <= weaponInUse.GetMaxAttackRange();
         }
 
-
-        public float healthAsPercentage
+        private void OnCollisionEnter(Collision collision)
         {
-            get
+            // Debug-draw all contact points and normals
+            foreach (ContactPoint contact in collision.contacts)
             {
-                float healthAsPercentage = currentHealth / maxHealthPoints;
-                return healthAsPercentage;
+                Debug.DrawRay(contact.point, contact.normal, Color.white);
             }
-
         }
-
-        
     }
 }
 

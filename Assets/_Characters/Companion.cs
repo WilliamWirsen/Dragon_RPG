@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using RPG.Weapons;
 using UnityEngine;
 using UnityStandardAssets.Characters.ThirdPerson;
-using RPG.Weapons;
 
 namespace RPG.Characters
 {
@@ -11,101 +9,141 @@ namespace RPG.Characters
         [SerializeField]
         float maxHealthPoints = 100f;
         [SerializeField]
-        float chaseRadius = 9f;
+        float ChaseRadius = 9f;
+        [SerializeField]
+        float HealingRadius = 9f;
+        [SerializeField]
+        float HealingPerShot = -30f;
+        [SerializeField]
+        float SecondsBetweenShots = 0.5f;
+        [SerializeField]
+        bool _AlwaysHeal = true;
 
         [SerializeField]
-        float healingRadius = 9f;
+        GameObject ProjectileToUse;
         [SerializeField]
-        float healingPerShot = -30f;
+        GameObject ProjectileSocket;
         [SerializeField]
-        float secondsBetweenShots = 0.5f;
-
-        [SerializeField]
-        GameObject projectileToUse;
-        [SerializeField]
-        GameObject projectileSocket;
-        [SerializeField]
-        Vector3 aimOffset = new Vector3(0, 1f, 0);
+        Vector3 AimOffset = new(0, 1f, 0);
         [SerializeField]
         CompanionType CompanionType = CompanionType.Healer;
 
-        float currentHealthPoints;
-        AICharacterControl aiCharacterControl = null;
-        GameObject player = null;
-        bool isHealing = false;
+        private float _CurrentHealthPoints;
+        private AICharacterControl _AiCharacterControl = null;
+        private GameObject _Player = null;
+        private bool _IsHealing = false;
+        private Player _PlayerComponent = null;
+        private bool _IsAlive = true;
 
-        public float healthAsPercentage
+        public float HealthAsPercentage
         {
             get
             {
-                float healthAsPercentage = currentHealthPoints / maxHealthPoints;
+                float healthAsPercentage = _CurrentHealthPoints / maxHealthPoints;
                 return healthAsPercentage;
             }
         }
         private void Start()
         {
-            player = GameObject.FindGameObjectWithTag("Player");
-            aiCharacterControl = GetComponent<AICharacterControl>();
-            currentHealthPoints = maxHealthPoints;
+            _Player = GameObject.FindGameObjectWithTag("Player");
+            _PlayerComponent = _Player.GetComponent<Player>();
+            _AiCharacterControl = GetComponent<AICharacterControl>();
+            _CurrentHealthPoints = maxHealthPoints;
+            _IsAlive = true;
 
-            if(CompanionType == CompanionType.Healer)
+            if (CompanionType == CompanionType.Healer)
             {
-                isHealing = true;
+                _IsHealing = true;
             }
         }
 
         private void Update()
         {
-            float distanceToPlayer = Vector3.Distance(player.transform.position, aiCharacterControl.transform.position);
-            if (distanceToPlayer <= healingRadius && !isHealing && player.GetComponent<Player>().healthAsPercentage < 100f)
+            float distanceToTarget = Vector3.Distance(_Player.transform.position, _AiCharacterControl.transform.position);
+            switch (CompanionType)
             {
-                isHealing = true;
-                InvokeRepeating("SpawnProjectile", 0f, secondsBetweenShots);
+                case CompanionType.Healer:
+                    HealTarget(distanceToTarget);
+                    break;
+                default:
+                    Debug.LogError($"Companion type not yet implemented: {CompanionType}");
+                    break;
             }
 
-            if (distanceToPlayer > healingRadius)
+            if(_CurrentHealthPoints <= 0)
             {
-                isHealing = false;
-                CancelInvoke();
+                _IsAlive = false;
             }
 
-            if (distanceToPlayer <= chaseRadius)
+            if (_IsAlive == true)
             {
-                aiCharacterControl.SetTarget(player.transform);
+                ChaseTarget(_Player.transform, distanceToTarget);
+            }
+        }
+
+        private void ChaseTarget(Transform transform, float distanceToPlayer)
+        {
+            if (distanceToPlayer <= ChaseRadius)
+            {
+                _AiCharacterControl.SetTarget(_Player.transform);
             }
             else
             {
-                aiCharacterControl.SetTarget(aiCharacterControl.transform);
+                _AiCharacterControl.SetTarget(_AiCharacterControl.transform);
             }
         }
 
+        private void HealTarget(float distanceToTarget)
+        {
+            // Player is dead
+            if(_PlayerComponent.healthAsPercentage <= 0)
+            {
+                CancelInvoke();
+                return;
+            }
+            if (distanceToTarget <= HealingRadius && !_IsHealing)
+            {
+                _IsHealing = true;
+                InvokeRepeating("SpawnProjectile", 0f, SecondsBetweenShots);
+            }
+            if (_AlwaysHeal == false)
+                return; 
+            if (distanceToTarget > HealingRadius || (_PlayerComponent.healthAsPercentage >= 1f || _PlayerComponent.healthAsPercentage <= 0))
+            {
+                _IsHealing = false;
+                CancelInvoke();
+            }
+        }
 
         public void TakeDamage(float damage)
         {
-            currentHealthPoints = Mathf.Clamp(currentHealthPoints - damage, 0f, maxHealthPoints);
-            if (currentHealthPoints <= 0) { Destroy(gameObject); }
+            _CurrentHealthPoints = Mathf.Clamp(_CurrentHealthPoints - damage, 0f, maxHealthPoints);
+            if (_CurrentHealthPoints <= 0) { Destroy(gameObject); }
         }
 
+        // This method is called by string reference. This is the reason why it doesn't have any references linked.
         private void SpawnProjectile()
         {
-            GameObject newProjectile = Instantiate(projectileToUse, projectileSocket.transform.position, Quaternion.identity);
+            GameObject newProjectile = Instantiate(ProjectileToUse, ProjectileSocket.transform.position, Quaternion.identity);
             Projectile projectileComponent = newProjectile.GetComponent<Projectile>();
-            projectileComponent.SetDamage(healingPerShot);
+            projectileComponent.SetDamage(HealingPerShot);
+            projectileComponent.SetShooter(gameObject);
 
-            Vector3 unitVectorToPlayer = (player.transform.position + aimOffset - projectileSocket.transform.position).normalized;
+            Vector3 unitVectorToPlayer = (_Player.transform.position + AimOffset - ProjectileSocket.transform.position).normalized;
             float projectileSpeed = projectileComponent.GetDefaultLaunchSpeed();
             newProjectile.GetComponent<Rigidbody>().velocity = unitVectorToPlayer * projectileSpeed;
+            Destroy(newProjectile, 2);
         }
 
         private void OnDrawGizmos()
         {
             // Draw attack sphere
             Gizmos.color = new Color(255f, 0f, 0, 0.5f);
-            Gizmos.DrawWireSphere(transform.position, healingRadius);
+            Gizmos.DrawWireSphere(transform.position, HealingRadius);
 
             // Draw move sphere
             Gizmos.color = new Color(0f, 0f, 255f, 0.5f);
-            Gizmos.DrawWireSphere(transform.position, chaseRadius);
+            Gizmos.DrawWireSphere(transform.position, ChaseRadius);
 
         }
     }

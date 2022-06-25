@@ -52,17 +52,27 @@ namespace RPG.CameraUI
             // Notify delegates of highest priority game object under mouse when clicked
             if (Input.GetMouseButton(0))
             {
-                notifyMouseClickObservers(priorityHit.Value, layerHit);
+                if(notifyMouseClickObservers != null)
+                {
+                    notifyMouseClickObservers(priorityHit.Value, layerHit);
+                }
             }
         }
 
         void NotifyObserversIfLayerChanged(int newLayer)
         {
-            if (newLayer != topPriorityLayerLastFrame)
+            try
             {
-                topPriorityLayerLastFrame = newLayer;
-                notifyLayerChangeObservers(newLayer);
+                if (newLayer != topPriorityLayerLastFrame && notifyLayerChangeObservers != null)
+                {
+                    topPriorityLayerLastFrame = newLayer;
+                    notifyLayerChangeObservers(newLayer);
+                }
             }
+            catch (System.Exception ex)
+            {
+                Debug.LogError($"Exception found: {ex.Message}");
+            }            
         }
 
 

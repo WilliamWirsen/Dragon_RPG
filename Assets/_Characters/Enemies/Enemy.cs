@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using RPG.Core;
+using RPG.Weapons;
+using System;
 using UnityEngine;
 using UnityStandardAssets.Characters.ThirdPerson;
-using RPG.Core;
-using RPG.Weapons;
 
 namespace RPG.Characters
 {
@@ -21,6 +19,8 @@ namespace RPG.Characters
         [SerializeField] GameObject projectileToUse;
         [SerializeField] GameObject projectileSocket;
         [SerializeField] Vector3 aimOffset = new Vector3(0, 1f, 0);
+        [SerializeField] TextMesh _damageText;
+        [SerializeField] GameObject _popupTextGameObject;
 
         float currentHealthPoints;
         AICharacterControl aiCharacterControl = null;
@@ -67,11 +67,30 @@ namespace RPG.Characters
             }
         }
 
+        public static ScreenPopupText CreateDamagePopup(Vector3 position, int damage, GameObject damagePopupText)
+        {
+            var damagePopupTextTransform = Instantiate(damagePopupText, position, Quaternion.identity);
+            ScreenPopupText popupText = damagePopupTextTransform.GetComponent<ScreenPopupText>();
+            popupText.Setup(damage);
+
+            return popupText;
+        }
 
         public void TakeDamage(float damage)
         {
             currentHealthPoints = Mathf.Clamp(currentHealthPoints - damage, 0f, maxHealthPoints);
-            if (currentHealthPoints <= 0) { Destroy(gameObject); }
+            if(damage >= 0)
+            {
+                CreateDamagePopup(gameObject.transform.position, (int)Math.Ceiling(damage), _popupTextGameObject);
+            }
+            else
+            {
+                // Not yet implemented
+            }
+            if (currentHealthPoints <= 0) 
+            { 
+                Destroy(gameObject); 
+            }
         }
 
         private void FireProjectile()
