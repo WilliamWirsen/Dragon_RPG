@@ -1,68 +1,111 @@
 ﻿using RPG.Weapons;
+using System;
 using UnityEngine;
 using UnityStandardAssets.Characters.ThirdPerson;
 
 namespace RPG.Characters.NPCs.Enemies
 {
     [RequireComponent(typeof(NonControllableCharacter))]
+    [RequireComponent(typeof(Animator))]
     public class Enemy : MonoBehaviour
     {
 
-        [SerializeField] float chaseRadius = 7f;
+        [SerializeField]
+        float _ChaseRadius = 7f;
 
-        [SerializeField] float attackRadius = 4f;
-        [SerializeField] float damagePerShot = 9f;
-        [SerializeField] float secondsBetweenShots = 0.5f;
+        [SerializeField]
+        float _AttackRadius = 4f;
 
-        [SerializeField] GameObject projectileToUse;
-        [SerializeField] GameObject projectileSocket;
-        [SerializeField] Vector3 aimOffset = new Vector3(0, 1f, 0);
-        [SerializeField] TextMesh _damageText;
-        
-        AICharacterControl aiCharacterControl = null;
-        GameObject player = null;
-        bool isAttacking = false;
+        [SerializeField]
+        float _DamagePerShot = 9f;
 
-        
+        [SerializeField]
+        float _SecondsBetweenShots = 0.5f;
+
+        [SerializeField]
+        [Tooltip("Only used for ranged enemies")]
+        GameObject _ProjectileToUse;
+
+        [SerializeField]
+        [Tooltip("Only used for ranged enemies")]
+        GameObject _ProjectileSocket;
+
+        [SerializeField]
+        Vector3 _AimOffset = new(0, 1f, 0);
+
+        [SerializeField]
+        TextMesh _DamageText;
+        [SerializeField]
+        EnemyType _EnemyType;
+
+        private AICharacterControl _AiCharacterControl = null;
+        private NonControllableCharacter _NonControllableCharacter = null;
+        private Animator _Animator = null;
+        private GameObject _Player = null;
+        private static bool _IsAttacking = false;
+
         private void Start()
         {
-            player = GameObject.FindGameObjectWithTag("Player");
-            aiCharacterControl = GetComponent<AICharacterControl>();
+            _Player = GameObject.FindGameObjectWithTag("Player");
+            _AiCharacterControl = GetComponent<AICharacterControl>();
+            _NonControllableCharacter = GetComponent<NonControllableCharacter>();
+            _Animator = GetComponent<Animator>();
         }
 
         private void Update()
         {
-            float distanceToPlayer = Vector3.Distance(player.transform.position, aiCharacterControl.transform.position);
-            if (distanceToPlayer <= attackRadius && !isAttacking)
+            if (_NonControllableCharacter.IsAlive() == false)
+                return;
+
+            float distanceToPlayer = Vector3.Distance(_Player.transform.position, _AiCharacterControl.transform.position);
+
+            if (distanceToPlayer <= _AttackRadius && !_IsAttacking)
             {
-                isAttacking = true;
-                InvokeRepeating(nameof(FireProjectile), 0f, secondsBetweenShots);
+                switch (_EnemyType)
+                {
+                    case EnemyType.Ranged:
+                        _IsAttacking = true;
+                        InvokeRepeating(nameof(FireProjectile), 0f, _SecondsBetweenShots);
+                        if (distanceToPlayer > _AttackRadius)
+                        {
+                            _IsAttacking = false;
+                            CancelInvoke();
+                        }
+
+                        break;
+                    case EnemyType.Melee:
+                        if (distanceToPlayer < _AttackRadius)
+                        {
+                            _IsAttacking = true;
+                            _NonControllableCharacter.AttackTarget(_Player, _DamagePerShot);
+                        }
+                        _IsAttacking = false;
+                        break;
+                    default:
+                        throw new NotImplementedException();
+                }
             }
 
-            if (distanceToPlayer > attackRadius)
+            if (distanceToPlayer <= _ChaseRadius)
             {
-                isAttacking = false;
-                CancelInvoke();
-            }
-
-            if (distanceToPlayer <= chaseRadius)
-            {
-                aiCharacterControl.SetTarget(player.transform);
+                _AiCharacterControl.SetTarget(_Player.transform);
             }
             else
             {
-                aiCharacterControl.SetTarget(aiCharacterControl.transform);
+                _AiCharacterControl.SetTarget(_AiCharacterControl.transform);
             }
-        }    
+        }
+
+
 
         private void FireProjectile()
         {
-            GameObject newProjectile = Instantiate(projectileToUse, projectileSocket.transform.position, Quaternion.identity);
+            GameObject newProjectile = Instantiate(_ProjectileToUse, _ProjectileSocket.transform.position, Quaternion.identity);
             Projectile projectileComponent = newProjectile.GetComponent<Projectile>();
-            projectileComponent.SetDamage(damagePerShot);
+            projectileComponent.SetDamage(_DamagePerShot);
             projectileComponent.SetShooter(gameObject);
 
-            Vector3 unitVectorToPlayer = (player.transform.position + aimOffset - projectileSocket.transform.position).normalized;
+            Vector3 unitVectorToPlayer = (_Player.transform.position + _AimOffset - _ProjectileSocket.transform.position).normalized;
             float projectileSpeed = projectileComponent.GetDefaultLaunchSpeed();
             newProjectile.GetComponent<Rigidbody>().velocity = unitVectorToPlayer * projectileSpeed;
         }
@@ -71,11 +114,11 @@ namespace RPG.Characters.NPCs.Enemies
         {
             // Draw attack sphere
             Gizmos.color = new Color(255f, 0f, 0, 0.5f);
-            Gizmos.DrawWireSphere(transform.position, attackRadius);
+            Gizmos.DrawWireSphere(transform.position, _AttackRadius);
 
             // Draw move sphere
             Gizmos.color = new Color(0f, 0f, 255f, 0.5f);
-            Gizmos.DrawWireSphere(transform.position, chaseRadius);
+            Gizmos.DrawWireSphere(transform.position, _ChaseRadius);
 
         }
     }

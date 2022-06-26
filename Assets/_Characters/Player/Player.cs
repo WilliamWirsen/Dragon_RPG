@@ -9,6 +9,7 @@ namespace RPG.Characters
 {
     public class Player : MonoBehaviour, IDamageable
     {
+        public float CurrentHealth { get; private set; }
 
         [SerializeField] int enemyLayer = 10;
         [SerializeField] float maxHealthPoints = 100f;
@@ -18,20 +19,14 @@ namespace RPG.Characters
         [SerializeField] AnimatorOverrideController animatorOverrideController;
         [SerializeField] GameObject _popupText;
 
-
+        
         Animator animator;
-        float currentHealth;
         CameraRaycaster cameraRaycaster;
         float lastHitTime = 0f;
 
         public float HealthAsPercentage
         {
-            get
-            {
-                float healthAsPercentage = currentHealth / maxHealthPoints;
-                return healthAsPercentage;
-            }
-
+            get => CurrentHealth / maxHealthPoints;
         }
 
         void Start()
@@ -44,13 +39,13 @@ namespace RPG.Characters
 
         public void TakeDamage(float damage)
         {
-            currentHealth = Mathf.Clamp(currentHealth - damage, 0f, maxHealthPoints);
+            CurrentHealth = Mathf.Clamp(CurrentHealth - damage, 0f, maxHealthPoints);
             ScreenPopupText.CreateDamagePopup(gameObject.transform.position, (int)System.Math.Ceiling(damage), _popupText);
         }
 
         private void SetCurrentMaxHealth()
         {
-            currentHealth = maxHealthPoints;
+            CurrentHealth = maxHealthPoints;
         }
 
         private void SetupRuntimeAnimator()

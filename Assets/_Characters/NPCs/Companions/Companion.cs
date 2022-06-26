@@ -8,8 +8,6 @@ namespace RPG.Characters.NPCs.Companions
     public class Companion : MonoBehaviour
     {
         [SerializeField]
-        float _MaxHealthPoints = 100f;
-        [SerializeField]
         float _ChaseRadius = 9f;
         [SerializeField]
         float _HealingRadius = 9f;
@@ -59,9 +57,13 @@ namespace RPG.Characters.NPCs.Companions
                 default:
                     Debug.LogError($"Companion type not yet implemented: {_CompanionType}");
                     break;
-            }
+            }            
+        }
 
-            if (_NonControllableCharacterComponent.IsAlive == true)
+        private void LateUpdate()
+        {
+            float distanceToTarget = Vector3.Distance(_Player.transform.position, _AiCharacterControl.transform.position);
+            if (_NonControllableCharacterComponent.IsAlive())
             {
                 ChaseTarget(_Player.transform, distanceToTarget);
             }
@@ -90,7 +92,7 @@ namespace RPG.Characters.NPCs.Companions
             if (distanceToTarget <= _HealingRadius && !_IsHealing)
             {
                 _IsHealing = true;
-                InvokeRepeating("SpawnProjectile", 0f, _SecondsBetweenShots);
+                InvokeRepeating(nameof(SpawnProjectile), 0f, _SecondsBetweenShots);
             }
             if (_AlwaysHeal == false)
                 return; 

@@ -15,10 +15,11 @@ namespace RPG.Characters.NPCs.Enemies
         GameObject enemyCanvasPrefab = null;
 
         Camera cameraToLookAt;
-
+        NonControllableCharacter _NonControllableCharacter = null;
         // Use this for initialization 
         void Start()
         {
+            _NonControllableCharacter = GetComponentInParent<NonControllableCharacter>();
             cameraToLookAt = Camera.main;
             Instantiate(enemyCanvasPrefab, transform.position, Quaternion.identity, transform);
         }
@@ -26,7 +27,14 @@ namespace RPG.Characters.NPCs.Enemies
         // Update is called once per frame 
         void LateUpdate()
         {
-            transform.LookAt(cameraToLookAt.transform);
+            if (_NonControllableCharacter != null && _NonControllableCharacter.IsAlive() == false)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                transform.LookAt(cameraToLookAt.transform);
+            }
         }
     }
 }

@@ -1024,6 +1024,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4412450395847942}
+  - component: {fileID: 5948887372320687487}
   m_Layer: 10
   m_Name: EthanRightHand
   m_TagString: Untagged
@@ -1051,6 +1052,18 @@ Transform:
   m_Father: {fileID: 4377172820126982}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5948887372320687487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408565203255350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56c6a4334e9213445bb597a30fe86a76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1412396563887482
 GameObject:
   m_ObjectHideFlags: 0
@@ -1609,13 +1622,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4006862197773072}
   - component: {fileID: 95475257847083642}
+  - component: {fileID: 2336730909092740308}
   - component: {fileID: 114699452607156924}
   - component: {fileID: 54362844208938602}
   - component: {fileID: 195007539989767934}
   - component: {fileID: 136271515216879668}
   - component: {fileID: 114153400642939676}
   - component: {fileID: 114367341134390626}
-  - component: {fileID: 2336730909092740308}
   m_Layer: 10
   m_Name: Enemy Archer
   m_TagString: Untagged
@@ -1663,6 +1676,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2336730909092740308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558796537158136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f081f9ac5fd1ecb43abd23b9e6b51776, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _MaxHealthPoints: 100
+  _popupTextGameObject: {fileID: 1156124924233733613, guid: 07a2b0676ec4491408e2ff278b01595e,
+    type: 3}
+  _WeaponInUse: {fileID: 11400000, guid: 96c76c4281355f34695d12099935e760, type: 2}
+  _AnimatorOverrideController: {fileID: 22100000, guid: eb120f0cf8b88994dade4a53088381ea,
+    type: 2}
 --- !u!114 &114699452607156924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1675,15 +1706,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d3e051e0d9a834eaa7d0ad489e7167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chaseRadius: 2.37
-  attackRadius: 8.97
-  damagePerShot: 40
-  secondsBetweenShots: 1.9
-  projectileToUse: {fileID: 1038732007661266, guid: 8c90ffc29e9414042a15c2948709f7fc,
+  _ChaseRadius: 7
+  _AttackRadius: 4
+  _DamagePerShot: 9
+  _SecondsBetweenShots: 0.5
+  _ProjectileToUse: {fileID: 1038732007661266, guid: 8c90ffc29e9414042a15c2948709f7fc,
     type: 3}
-  projectileSocket: {fileID: 1919079401617452}
-  aimOffset: {x: 0, y: 1, z: 0}
-  _damageText: {fileID: 0}
+  _ProjectileSocket: {fileID: 1919079401617452}
+  _AimOffset: {x: 0, y: 1, z: 0}
+  _DamageText: {fileID: 0}
+  _EnemyType: 1
 --- !u!54 &54362844208938602
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1768,22 +1800,6 @@ MonoBehaviour:
   m_MoveSpeedMultiplier: 1
   m_AnimSpeedMultiplier: 1
   m_GroundCheckDistance: 0.19
---- !u!114 &2336730909092740308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1558796537158136}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f081f9ac5fd1ecb43abd23b9e6b51776, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _MaxHealthPoints: 100
-  _CurrentHealthPoints: 0
-  _popupTextGameObject: {fileID: 1156124924233733613, guid: 07a2b0676ec4491408e2ff278b01595e,
-    type: 3}
 --- !u!1 &1566738203018264
 GameObject:
   m_ObjectHideFlags: 0

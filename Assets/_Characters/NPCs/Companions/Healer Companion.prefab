@@ -1024,6 +1024,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4412450395847942}
+  - component: {fileID: 5689110477365899475}
   m_Layer: 2
   m_Name: EthanRightHand
   m_TagString: Untagged
@@ -1051,6 +1052,18 @@ Transform:
   m_Father: {fileID: 4377172820126982}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5689110477365899475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408565203255350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56c6a4334e9213445bb597a30fe86a76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1412396563887482
 GameObject:
   m_ObjectHideFlags: 0
@@ -1609,13 +1622,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4006862197773072}
   - component: {fileID: 95475257847083642}
+  - component: {fileID: 2336730909092740308}
   - component: {fileID: 114133159424570966}
   - component: {fileID: 54362844208938602}
   - component: {fileID: 195007539989767934}
   - component: {fileID: 136271515216879668}
   - component: {fileID: 114153400642939676}
   - component: {fileID: 114367341134390626}
-  - component: {fileID: 2336730909092740308}
   m_Layer: 2
   m_Name: Healer Companion
   m_TagString: Untagged
@@ -1662,6 +1675,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2336730909092740308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558796537158136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f081f9ac5fd1ecb43abd23b9e6b51776, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _MaxHealthPoints: 100
+  _popupTextGameObject: {fileID: 1156124924233733613, guid: 07a2b0676ec4491408e2ff278b01595e,
+    type: 3}
+  _WeaponInUse: {fileID: 11400000, guid: d26c606b6602cb4458c9c12c406a7df8, type: 2}
+  _AnimatorOverrideController: {fileID: 22100000, guid: eb120f0cf8b88994dade4a53088381ea,
+    type: 2}
 --- !u!114 &114133159424570966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1674,7 +1705,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd7ae03955661f42a072b4ee241cc66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _MaxHealthPoints: 100
   _ChaseRadius: 9
   _HealingRadius: 9
   _HealingPerShot: -30
@@ -1769,22 +1799,6 @@ MonoBehaviour:
   m_MoveSpeedMultiplier: 1
   m_AnimSpeedMultiplier: 1
   m_GroundCheckDistance: 1
---- !u!114 &2336730909092740308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1558796537158136}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f081f9ac5fd1ecb43abd23b9e6b51776, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _MaxHealthPoints: 100
-  _CurrentHealthPoints: 0
-  _popupTextGameObject: {fileID: 1156124924233733613, guid: 07a2b0676ec4491408e2ff278b01595e,
-    type: 3}
 --- !u!1 &1566738203018264
 GameObject:
   m_ObjectHideFlags: 0
